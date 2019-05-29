@@ -4,14 +4,16 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            "titulo": "titulo"
+            "titulo": "Pineapple"
         }
     }
 
     render() {
         return (
             <>
-                {this.state.titulo}
+                <nav className="navbar navbar-dark bg-primary">
+                    <span className="navbar-brand mb-0 h1">{this.state.titulo}</span>
+                </nav>
             </>
         )
     }

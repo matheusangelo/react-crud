@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import Header from '../src/components/header/header'
+import Header from './components/header/Header';
+import Painel from './components/painel/Painel';
+import Footer from './components/footer/Footer';
 
 
 class App extends Component {
@@ -10,10 +12,12 @@ class App extends Component {
     return (
       <div className="App">
         <div className="main-container" style={{ "align": "center" }}>
+          <Header/>
           <Switch>
-            <Route path="/" exact component={Header} />
+            <Route path="/" exact component={Painel} />
           </Switch>
         </div>
+        <Footer/>
       </div>
     );
   }
