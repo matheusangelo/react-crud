@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Table, Row, Col, Button, Alert, Modal, ModalHeader,ModalBody, ModalFooter } from 'reactstrap';
+import { Container, Table, Row, Col, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { IoIosCheckmark, IoIosClose, IoIosBuild } from 'react-icons/io';
 
 let mock = [
@@ -48,23 +48,23 @@ class Painel extends Component {
                 <Row>
                     <Col>
                         <Table bordered className="mt-2" id="tabela">
-                            <thead>
+                            <thead className="thead-dark">
                                 <tr>
-                                    <td>
-                                        Id
-                                    </td>
-                                    <td>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
                                         Nome
-                                    </td>
-                                    <td>
+                                    </th>
+                                    <th>
                                         Descricao
-                                    </td>
-                                    <td>
+                                    </th>
+                                    <th>
                                         Data Descricao
-                                    </td>
-                                    <td>
+                                    </th>
+                                    <th>
                                         Ações
-                                    </td>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
