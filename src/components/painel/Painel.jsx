@@ -1,34 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Table, Row, Col, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Container, Table, Row, Col, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import { IoIosCheckmark, IoIosClose, IoIosBuild } from 'react-icons/io';
+import ReactStars from 'react-stars'
 
-let mock = [
-    {
-        "id": 1,
-        "nome_produto": "XPTO",
-        "descricao": "Carga de um produto qualquer",
-        "data_criacao": "10/02/2018"
-    },
-    {
-        "id": 1,
-        "nome_produto": "XPTO",
-        "descricao": "Carga de um produto qualquer",
-        "data_criacao": "10/02/2018"
-    },
-    {
-        "id": 1,
-        "nome_produto": "XPTO",
-        "descricao": "Carga de um produto qualquer",
-        "data_criacao": "10/02/2018"
-    }
-]
 
 class Painel extends Component {
     constructor(props) {
         super(props);
         this.state = {
             titulo: "Pineapple",
-            produtos: mock,
+            produtos: [],
             modalEditar: false,
         }
     }
@@ -37,6 +18,22 @@ class Painel extends Component {
         this.setState({
             modalEditar: !this.state.modalEditar,
         });
+    }
+
+    componentDidMount() {
+        fetch( 'http://localhost:8090/', {
+            method: 'GET',
+            mode: 'cors',
+        }).then(resultado => {
+            resultado.json().then(dados => {
+                this.setState({produtos: dados})
+            })
+        });
+
+    }
+
+    classificacaoChange = (newRating) => {
+        console.log(newRating)
     }
 
     render() {
@@ -75,7 +72,7 @@ class Painel extends Component {
                                             <td>{produto.nome_produto}</td>
                                             <td>{produto.descricao}</td>
                                             <td>{produto.data_criacao}</td>
-                                            <td><IoIosCheckmark color="green" /><IoIosClose color="red" /><IoIosBuild  onClick = {this.toggleEditar}/></td>
+                                            <td><IoIosCheckmark color="green" /><IoIosClose color="red" /><IoIosBuild onClick={this.toggleEditar} /></td>
                                         </tr>
                                     )
                                 })}
@@ -88,11 +85,36 @@ class Painel extends Component {
                         Produto
                     </ModalHeader>
                     <ModalBody>
-
+                        <Container className="text-left">
+                            <Row>
+                                <Col>
+                                    Nome
+                                    <input type="text" placeholder="Nome do Produto" className="form-control"></input>
+                                </Col>
+                            </Row>
+                            <Row className="mt-2">
+                                <Col>
+                                    Imagem
+                                    <input type="file" placeholder="Nome do Produto" className="form-control"></input>
+                                </Col>
+                            </Row>
+                            <Row className="mt-2">
+                                <Col>
+                                    Descrição
+                                    <textarea className="form-control"></textarea>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    Classificação
+                                <ReactStars count={5} onChange={this.classificacaoChange} size={24} color2={'#ffd700'} />
+                                </Col>
+                            </Row>
+                        </Container>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="secondary" onClick={this.toggleEditar}>Cancelar</Button>
-                        <Button color="success" onClick={this.vincularSinistros}>Cadastrar</Button>
+                        <Button color="danger" onClick={this.toggleEditar}>Cancelar</Button>
+                        <Button color="primary" onClick={this.vincularSinistros}>Cadastrar</Button>
                     </ModalFooter>
                 </Modal>
             </Container>
