@@ -41,13 +41,13 @@ class Painel extends Component {
 
     render() {
         return (
-            <Container fluid>
+            <Container fluid className="painel">
                 <Row className="mt-2 ml-2">
                     <Button color="primary" onClick={this.toggleEditar}> Novo produto</Button>
                 </Row>
                 <Row>
                     <Col>
-                        <Table bordered className="mt-2">
+                        <Table bordered className="mt-2" id="tabela">
                             <thead>
                                 <tr>
                                     <td>
@@ -75,7 +75,7 @@ class Painel extends Component {
                                             <td>{produto.nome_produto}</td>
                                             <td>{produto.descricao}</td>
                                             <td>{produto.data_criacao}</td>
-                                            <td><IoIosCheckmark /><IoIosClose /><IoIosBuild /></td>
+                                            <td><IoIosCheckmark color="green" /><IoIosClose color="red" /><IoIosBuild  onClick = {this.toggleEditar}/></td>
                                         </tr>
                                     )
                                 })}

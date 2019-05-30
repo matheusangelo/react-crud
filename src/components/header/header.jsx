@@ -11,7 +11,7 @@ class Header extends Component {
     render() {
         return (
             <>
-                <nav className="navbar navbar-dark bg-primary">
+                <nav className="navbar navbar-dark bg-primary topo">
                     <span className="navbar-brand mb-0 h1">{this.state.titulo}</span>
                 </nav>
             </>

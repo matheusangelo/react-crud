@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Header from './components/header/Header';
 import Painel from './components/painel/Painel';
 import Footer from './components/footer/Footer';
+import Login from './components/login/Login'
 
 
 class App extends Component {
@@ -14,7 +15,8 @@ class App extends Component {
         <div className="main-container" style={{ "align": "center" }}>
           <Header/>
           <Switch>
-            <Route path="/" exact component={Painel} />
+            <Route path="/" exact component={Login} />
+            <Route path="/painel" exact component={Painel} />
           </Switch>
         </div>
         <Footer/>
