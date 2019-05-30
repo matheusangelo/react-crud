@@ -78,10 +78,6 @@
     width: 100%;
 }
 
-.navbar navbar-dark bg-primary topo{
-  background-color:  rgba(0, 162, 255, 0.959);
-}
-
 .titulo-login{
   color: rgba(0, 162, 255, 0.959);
   font-weight: bold;
