@@ -31,8 +31,10 @@
   height: 50vh;
 }
 
-.painel{
+#painel{
   font-family: 'Calibri Light';
+  margin:auto;
+  width: 50% !important;
 }
 
 

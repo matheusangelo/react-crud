@@ -41,9 +41,9 @@ class Painel extends Component {
 
     render() {
         return (
-            <Container fluid className="painel">
+            <Container fluid id="painel" className="mt-5">
                 <Row className="mt-2 ml-2">
-                    <Button color="primary" onClick={this.toggleEditar}> Novo produto</Button>
+                    <Button color="primary" onClick={this.toggleEditar} className="mb-2"> Novo produto</Button>
                 </Row>
                 <Row>
                     <Col>
