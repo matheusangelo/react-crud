@@ -57,10 +57,10 @@ class Painel extends Component {
                                         Nome
                                     </th>
                                     <th>
-                                        Descricao
+                                        Descrição
                                     </th>
                                     <th>
-                                        Data Descricao
+                                        Data Criação
                                     </th>
                                     <th>
                                         Ações

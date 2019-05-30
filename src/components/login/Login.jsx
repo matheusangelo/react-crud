@@ -15,7 +15,8 @@ class Login extends Component{
                     <Input type="password" placeholder="Senha"/>
                     <hr />
                     <Button className="mb-2">Entrar</Button>
-                    <Link><span>Criar conta grátis</span></Link>
+                    <Link to='/painel'><span>Criar conta</span></Link><br/>
+                    <Link to='/painel'><span>Esqueci a Senha</span></Link><br/>
                 </Form>
             </Container>
         )
