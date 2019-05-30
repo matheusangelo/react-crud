@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Table, Row, Col, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import { IoIosCheckmark, IoIosClose, IoIosBuild } from 'react-icons/io';
-import ReactStars from 'react-stars'
+import ReactStars from 'react-stars';
+import {URL_BASE} from '../service/base';
 
 
 class Painel extends Component {
@@ -21,7 +22,7 @@ class Painel extends Component {
     }
 
     componentDidMount() {
-        fetch( 'http://localhost:8090/', {
+        fetch(URL_BASE, {
             method: 'GET',
             mode: 'cors',
         }).then(resultado => {
