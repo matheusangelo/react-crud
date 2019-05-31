@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Table, Row, Col, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
-import { IoIosCheckmark, IoIosClose, IoIosBuild } from 'react-icons/io';
+import { IoIosClose, IoIosBuild } from 'react-icons/io';
 import ReactStars from 'react-stars';
-import {URL_BASE} from '../service/base';
+import { URL_BASE } from '../service/base';
+import ReactTooltip from 'react-tooltip'
 
 
 class Painel extends Component {
@@ -15,6 +16,7 @@ class Painel extends Component {
         }
     }
 
+
     toggleEditar = () => {
         this.setState({
             modalEditar: !this.state.modalEditar,
@@ -22,12 +24,12 @@ class Painel extends Component {
     }
 
     componentDidMount() {
-        fetch(URL_BASE, {
+        fetch(URL_BASE + 'produtos', {
             method: 'GET',
             mode: 'cors',
         }).then(resultado => {
             resultado.json().then(dados => {
-                this.setState({produtos: dados})
+                this.setState({ produtos: dados })
             })
         });
 
@@ -73,7 +75,10 @@ class Painel extends Component {
                                             <td>{produto.nome_produto}</td>
                                             <td>{produto.descricao}</td>
                                             <td>{produto.data_criacao}</td>
-                                            <td><IoIosCheckmark color="green" /><IoIosClose color="red" /><IoIosBuild onClick={this.toggleEditar} /></td>
+                                            <td>
+                                            <ReactTooltip /><IoIosClose color="red" data-tip="Excluir Produto" />
+                                            <ReactTooltip /><IoIosBuild onClick={this.toggleEditar} data-tip="Editar Produto" />
+                                            </td>
                                         </tr>
                                     )
                                 })}
