@@ -49,120 +49,119 @@ class Painel extends Component {
             mode: 'cors',
         }).then(resultado => {
             resultado.json().then(dados => {
-                this.setState({ produtos: dados })
+                this.setState({produtos: dados})
             })
         });
 
     }
 
     classificacaoChange = (newRating) => {
-        console.log(newRating)
+        this.setState({classificao:newRating})
     }
 
     render() {
         return (
-            <>
-                <Container fluid id="painel" className="mt-5">
-                    <Row>
-                        <Alert>Alteração realizada com sucesso</Alert>
-                    </Row>
-                    <Row className="mt-2 ml-2">
-                        <Button color="primary" onClick={this.toggleEditar} className="mb-2"> Novo produto</Button>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Table bordered hover className="mt-2" id="tabela">
-                                <thead className="thead-dark">
-                                    <tr>
-                                        <th>
-                                            #
+            <Container fluid id="painel" className="mt-5">
+                <Row>
+                    <Alert>Alteração realizada com sucesso</Alert>
+                </Row>
+                <Row className="mt-2 ml-2">
+                    <Button color="primary" onClick={this.toggleEditar} className="mb-2"> Novo produto</Button>
+                </Row>
+                <Row>
+                    <Col>
+                        <Table bordered hover className="mt-2" id="tabela">
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th>
+                                        #
                                     </th>
-                                        <th>
-                                            Nome
-                                    </th>
-                                        <th>
-                                            Descrição
-                                    </th>
-                                        <th>
-                                            Data Criação
-                                    </th>
-                                        <th>
-                                            Ações
-                                    </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.produtos.map((produto, i) => {
-                                        return (
-                                            <tr key={i}>
-                                                <td>{produto.id}</td>
-                                                <td>{produto.nome_produto}</td>
-                                                <td>{produto.descricao}</td>
-                                                <td>{produto.data_criacao}</td>
-                                                <td>
-                                                    <ReactTooltip /><IoIosClose onClick={() => this.toggleExcluir(produto)} color="red" data-tip="Excluir Produto" />
-                                                    <ReactTooltip /><IoIosBuild onClick={() => this.toggleEditar(produto)} data-tip="Editar Produto" />
-                                                </td>
-                                            </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </Table>
-                        </Col>
-                    </Row>
-                    <Modal isOpen={this.state.modalEditar} toggle={this.toggleEditar}>
-                        <ModalHeader toggle={this.toggle}>
-                            Produto
-                    </ModalHeader>
-                        <ModalBody>
-                            <Container className="text-left">
-                                <Row>
-                                    <Col>
+                                    <th>
                                         Nome
-                                    <input type="text"
-                                            placeholder="Nome do Produto"
-                                            className="form-control"
-                                            onChange={this.handleChange}
-                                            name="nome_produto"
-                                            value={this.state.nome_produto}></input>
-                                    </Col>
-                                </Row>
-                                <Row className="mt-2">
-                                    <Col>
-                                        Imagem
-                                    <input type="file"
-                                            placeholder="Nome do Produto"
-                                            className="form-control"
-                                            onChange={this.handleChange}></input>
-                                    </Col>
-                                </Row>
-                                <Row className="mt-2">
-                                    <Col>
+                                    </th>
+                                    <th>
                                         Descrição
+                                    </th>
+                                    <th>
+                                        Data Criação
+                                    </th>
+                                    <th>
+                                        Ações
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.produtos.map((produto, i) => {
+                                    return (
+                                        <tr key={i}>
+                                            <td>{produto.id}</td>
+                                            <td>{produto.nome_produto}</td>
+                                            <td>{produto.descricao}</td>
+                                            <td>{produto.data_criacao}</td>
+                                            <td>
+                                                <ReactTooltip /><IoIosClose onClick={() => this.toggleExcluir(produto)} color="red" data-tip="Excluir Produto" />
+                                                <ReactTooltip /><IoIosBuild onClick={() => this.toggleEditar(produto)} data-tip="Editar Produto" />
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+                <Modal isOpen={this.state.modalEditar} toggle={this.toggleEditar}>
+                    <ModalHeader toggle={this.toggle}>
+                        Produto
+                    </ModalHeader>
+                    <ModalBody>
+                        <Container className="text-left">
+                            <Row>
+                                <Col>
+                                    Nome
+                                    <input type="text"
+                                        placeholder="Nome do Produto"
+                                        className="form-control"
+                                        onChange={this.handleChange}
+                                        name="nome_produto"
+                                        value={this.state.nome_produto}></input>
+                                </Col>
+                            </Row>
+                            <Row className="mt-2">
+                                <Col>
+                                    Imagem
+                                    <input type="file"
+                                        placeholder="Nome do Produto"
+                                        className="form-control"
+                                        onChange={this.handleChange}></input>
+                                </Col>
+                            </Row>
+                            <Row className="mt-2">
+                                <Col>
+                                    Descrição
                                     <textarea className="form-control"
-                                            name="descricao"
-                                            onChange={this.handleChange}
-                                            value={this.state.descricao}></textarea>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        Classificação
+                                        name="descricao"
+                                        onChange={this.handleChange}
+                                        value={this.state.descricao}></textarea>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    Classificação
                                     <ReactStars count={5}
-                                            onChange={this.classificacaoChange}
-                                            size={24}
-                                            color2={'#ffd700'} />
-                                    </Col>
-                                </Row>
-                            </Container>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color="danger" onClick={this.toggleEditar}>Cancelar</Button>
-                            <Button color="primary" onClick={this.vincularSinistros}>Cadastrar</Button>
-                        </ModalFooter>
-                    </Modal>
-                </Container>
-            </>
+                                        onChange={this.classificacaoChange}
+                                        size={24}
+                                        color2={'#ffd700'}
+                                        value ={this.state.classificao} />
+                                </Col>
+                            </Row>
+                        </Container>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="danger" onClick={this.toggleEditar}>Cancelar</Button>
+                        <Button color="primary" onClick={this.vincularSinistros}>Cadastrar</Button>
+                    </ModalFooter>
+                </Modal>
+            </Container>
         )
     }
 }
