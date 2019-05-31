@@ -15,6 +15,7 @@ class Painel extends Component {
             modalEditar: false,
             modalExcluir: false,
             exibir_alerta: false,
+            produto_exclusao: []
         }
     }
 
@@ -26,8 +27,8 @@ class Painel extends Component {
 
     toggleEditar = (produto) => {
         this.setState({
-            produtoEdicao: produto,
             modalEditar: !this.state.modalEditar,
+            id: produto._id,
             nome_produto: produto.nome_produto,
             imagem: produto.nome_produto,
             descricao: produto.descricao,
@@ -35,6 +36,16 @@ class Painel extends Component {
         });
     }
 
+    listarProdutos = () => {
+        fetch(URL_BASE + 'produtos', {
+            method: 'GET',
+            mode: 'cors',
+        }).then(resultado => {
+            resultado.json().then(dados => {
+                this.setState({ produtos: dados })
+            })
+        });
+    }
 
     toggleExcluir = (produto) => {
         this.setState({
@@ -44,26 +55,54 @@ class Painel extends Component {
     }
 
     componentDidMount() {
-        fetch(URL_BASE + 'produtos', {
-            method: 'GET',
-            mode: 'cors',
-        }).then(resultado => {
-            resultado.json().then(dados => {
-                this.setState({produtos: dados})
-            })
-        });
-
+        this.listarProdutos();
     }
 
     classificacaoChange = (newRating) => {
-        this.setState({classificao:newRating})
+        this.setState({ classificao: newRating })
+    }
+
+    cadastrarProduto = () => {
+        let metodo = "";
+        let id = this.state.id;
+
+
+        id == undefined ? metodo = 'POST' : metodo = 'PUT';
+        
+        let dados = {
+            "nome_produto": this.state.nome_produto,
+            "descricao": this.state.descricao,
+            "data_criacao": new Date(),
+            "classificacao": this.state.classificacao
+        }
+
+        debugger;
+
+        let jdados = JSON.stringify(dados);
+
+        fetch(URL_BASE + 'produtos', {
+            method: metodo,
+            headers: { "Content-Type": "application/json" },
+            body: jdados,
+            mode: 'cors'
+        }).then(() => {
+            console.log("200");
+            this.setState(
+                {   modalEditar: !this.state.modalEditar,
+                    exibir_alerta: true
+                });
+            this.listarProdutos();
+            setTimeout(function () {
+                    this.setState({ exibir_alerta: false });
+                }.bind(this),3000);
+        });
     }
 
     render() {
         return (
             <Container fluid id="painel" className="mt-5">
                 <Row>
-                    <Alert>Alteração realizada com sucesso</Alert>
+                    <Alert isOpen={this.state.exibir_alerta}>Alteração realizada com sucesso</Alert>
                 </Row>
                 <Row className="mt-2 ml-2">
                     <Button color="primary" onClick={this.toggleEditar} className="mb-2"> Novo produto</Button>
@@ -94,7 +133,7 @@ class Painel extends Component {
                                 {this.state.produtos.map((produto, i) => {
                                     return (
                                         <tr key={i}>
-                                            <td>{produto.id}</td>
+                                            <td>{i}</td>
                                             <td>{produto.nome_produto}</td>
                                             <td>{produto.descricao}</td>
                                             <td>{produto.data_criacao}</td>
@@ -151,14 +190,26 @@ class Painel extends Component {
                                         onChange={this.classificacaoChange}
                                         size={24}
                                         color2={'#ffd700'}
-                                        value ={this.state.classificao} />
+                                        value={this.state.classificao} />
                                 </Col>
                             </Row>
                         </Container>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onClick={this.toggleEditar}>Cancelar</Button>
-                        <Button color="primary" onClick={this.vincularSinistros}>Cadastrar</Button>
+                        <Button color="primary" onClick={this.cadastrarProduto}>Cadastrar</Button>
+                    </ModalFooter>
+                </Modal>
+                <Modal isOpen={this.state.modalExcluir} toggle={this.toggleExcluir}>
+                    <ModalHeader toggle={this.toggle}>
+                        Excluir Produto
+                    </ModalHeader>
+                    <ModalBody>
+                        Tem certeza que deseja excluir o produto {this.state.produto_exclusao.nome_produto} ?
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggleExcluir}>Cancelar</Button>
+                        <Button color="danger" onClick={this.toggleExcluir}>Excluir</Button>
                     </ModalFooter>
                 </Modal>
             </Container>
