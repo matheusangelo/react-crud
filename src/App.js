@@ -5,7 +5,8 @@ import { Switch, Route } from 'react-router-dom';
 import Header from './components/header/Header';
 import Painel from './components/painel/Painel';
 import Footer from './components/footer/Footer';
-import Login from './components/login/Login'
+import Login from './components/login/Login';
+import CadastroLogin from './components/login/CadastroLogin';
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/painel" exact component={Painel} />
+            <Route path="/novo" exact component={CadastroLogin} />
           </Switch>
         </div>
         <Footer/>
