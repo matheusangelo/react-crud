@@ -66,7 +66,6 @@ class Painel extends Component {
         let metodo = "";
         let id = this.state.id;
 
-
         id === undefined ? metodo = 'POST' : metodo = 'PUT';
         
         let dados = {
@@ -75,8 +74,6 @@ class Painel extends Component {
             "data_criacao": new Date(),
             "classificacao": this.state.classificacao
         }
-
-        debugger;
 
         let jdados = JSON.stringify(dados);
 
@@ -89,6 +86,36 @@ class Painel extends Component {
             console.log("200");
             this.setState(
                 {   modalEditar: !this.state.modalEditar,
+                    exibir_alerta: true
+                });
+            this.listarProdutos();
+            setTimeout(function () {
+                    this.setState({ exibir_alerta: false });
+                }.bind(this),3000);
+        });
+    }
+
+    
+    excluirProduto = () => {
+
+        let dados = {
+            "nome_produto": this.state.nome_produto,
+            "descricao": this.state.descricao,
+            "data_criacao": this.state.data_criacao,
+            "classificacao": this.state.classificacao
+        }
+
+        let jdados = JSON.stringify(dados);
+
+        fetch(URL_BASE + 'produtos', {
+            method: 'DELETE',
+            headers: { "Content-Type": "application/json" },
+            body: jdados,
+            mode: 'cors'
+        }).then(() => {
+            console.log("200");
+            this.setState(
+                {  modalExcluir: !this.state.modalExcluir,
                     exibir_alerta: true
                 });
             this.listarProdutos();
@@ -209,7 +236,7 @@ class Painel extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.toggleExcluir}>Cancelar</Button>
-                        <Button color="danger" onClick={this.toggleExcluir}>Excluir</Button>
+                        <Button color="danger" onClick={this.excluirProduto}>Excluir</Button>
                     </ModalFooter>
                 </Modal>
             </Container>
