@@ -11,11 +11,13 @@ class CadastrarLogin extends Component{
             <Container className="container-login">
                 <Form className="form-login">
                     <h1 className="titulo-login">Cadastro</h1>
-                    <Input type="text" placeholder="Nome Usuário"/>
-                    <Input type="password" placeholder="Senha"/>
+                    <Input type="text" placeholder="Nome Usuário" required/>
+                    <Input type="email" placeholder="E-mail" required/>
+                    <Input type="password" placeholder="Senha" required/>
+                    <Input type="password" placeholder="Confirmar Senha" required/>
                     <hr />
                     <Button className="mb-2">Cadastrar-se</Button>
-                    <Link className="btn btn-primary">Voltar</Link>
+                    <Link to='/' className="btn btn-primary">Voltar</Link>
                 </Form>
             </Container>
         )

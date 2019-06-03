@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Table, Row, Col, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
+import { Container, Table, Row, Col, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { IoIosClose, IoIosBuild } from 'react-icons/io';
 import ReactStars from 'react-stars';
 import { URL_BASE } from '../service/base';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 
 class Painel extends Component {
@@ -67,7 +67,7 @@ class Painel extends Component {
         let id = this.state.id;
 
 
-        id == undefined ? metodo = 'POST' : metodo = 'PUT';
+        id === undefined ? metodo = 'POST' : metodo = 'PUT';
         
         let dados = {
             "nome_produto": this.state.nome_produto,
