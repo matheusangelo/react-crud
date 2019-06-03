@@ -4,6 +4,7 @@ import { IoIosClose, IoIosBuild } from 'react-icons/io';
 import ReactStars from 'react-stars';
 import { URL_BASE } from '../service/base';
 import ReactTooltip from 'react-tooltip';
+import Moment from 'react-moment';
 
 
 class Painel extends Component {
@@ -67,7 +68,7 @@ class Painel extends Component {
         let id = this.state.id;
 
         id === undefined ? metodo = 'POST' : metodo = 'PUT';
-        
+
         let dados = {
             "nome_produto": this.state.nome_produto,
             "descricao": this.state.descricao,
@@ -85,17 +86,18 @@ class Painel extends Component {
         }).then(() => {
             console.log("200");
             this.setState(
-                {   modalEditar: !this.state.modalEditar,
+                {
+                    modalEditar: !this.state.modalEditar,
                     exibir_alerta: true
                 });
             this.listarProdutos();
             setTimeout(function () {
-                    this.setState({ exibir_alerta: false });
-                }.bind(this),3000);
+                this.setState({ exibir_alerta: false });
+            }.bind(this), 3000);
         });
     }
 
-    
+
     excluirProduto = () => {
 
         let dados = {
@@ -115,13 +117,14 @@ class Painel extends Component {
         }).then(() => {
             console.log("200");
             this.setState(
-                {  modalExcluir: !this.state.modalExcluir,
+                {
+                    modalExcluir: !this.state.modalExcluir,
                     exibir_alerta: true
                 });
             this.listarProdutos();
             setTimeout(function () {
-                    this.setState({ exibir_alerta: false });
-                }.bind(this),3000);
+                this.setState({ exibir_alerta: false });
+            }.bind(this), 3000);
         });
     }
 
@@ -163,7 +166,7 @@ class Painel extends Component {
                                             <td>{i}</td>
                                             <td>{produto.nome_produto}</td>
                                             <td>{produto.descricao}</td>
-                                            <td>{produto.data_criacao}</td>
+                                            <td><Moment format="DD/MM/YYYY">{produto.data_criacao}</Moment></td>
                                             <td>
                                                 <ReactTooltip /><IoIosClose onClick={() => this.toggleExcluir(produto)} color="red" data-tip="Excluir Produto" />
                                                 <ReactTooltip /><IoIosBuild onClick={() => this.toggleEditar(produto)} data-tip="Editar Produto" />
