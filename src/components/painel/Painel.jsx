@@ -66,9 +66,12 @@ class Painel extends Component {
     cadastrarProduto = () => {
         let metodo = "";
         let id = this.state.id;
+        let url_produtos="produtos"
 
         id === undefined ? metodo = 'POST' : metodo = 'PUT';
+        metodo === 'POST' ? url_produtos = url_produtos : (url_produtos = url_produtos + '/' + id);
 
+        alert(URL_BASE + url_produtos)
         let dados = {
             "nome_produto": this.state.nome_produto,
             "descricao": this.state.descricao,
@@ -78,7 +81,7 @@ class Painel extends Component {
 
         let jdados = JSON.stringify(dados);
 
-        fetch(URL_BASE + 'produtos', {
+        fetch(URL_BASE + url_produtos, {
             method: metodo,
             headers: { "Content-Type": "application/json" },
             body: jdados,
@@ -99,17 +102,18 @@ class Painel extends Component {
 
 
     excluirProduto = () => {
-
+        let id = this.state.produto_exclusao._id
         let dados = {
-            "nome_produto": this.state.nome_produto,
-            "descricao": this.state.descricao,
-            "data_criacao": this.state.data_criacao,
-            "classificacao": this.state.classificacao
+            "id": this.state.produto_exclusao._id,
+            "nome_produto": this.state.produto_exclusao.nome_produto,
+            "descricao": this.state.produto_exclusao.descricao,
+            "data_criacao": this.state.produto_exclusao.data_criacao
         }
 
         let jdados = JSON.stringify(dados);
+        console.log(dados)
 
-        fetch(URL_BASE + 'produtos', {
+        fetch(URL_BASE + 'produtos'+'/'+ id, {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" },
             body: jdados,
