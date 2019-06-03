@@ -71,7 +71,6 @@ class Painel extends Component {
         id === undefined ? metodo = 'POST' : metodo = 'PUT';
         metodo === 'POST' ? url_produtos = url_produtos : (url_produtos = url_produtos + '/' + id);
 
-        alert(URL_BASE + url_produtos)
         let dados = {
             "nome_produto": this.state.nome_produto,
             "descricao": this.state.descricao,
@@ -111,7 +110,6 @@ class Painel extends Component {
         }
 
         let jdados = JSON.stringify(dados);
-        console.log(dados)
 
         fetch(URL_BASE + 'produtos'+'/'+ id, {
             method: 'DELETE',
